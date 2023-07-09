@@ -17,12 +17,12 @@
 from PIL import Image
 from predict import predict
 
-print(predict(Image.open('urisai.jpg')))   # [('momoi (blue archive)', 1.4793390460772633), ('midori (blue archive)', 2.2018390494738482), ('iijima yun', 2.309663538692209)]
+print(predict(Image.open('urusai.jpg')))   # [('momoi (blue archive)', 1.4793390460772633), ('midori (blue archive)', 2.2018390494738482), ('iijima yun', 2.309663538692209)]
 ```
 
 |  图片  | 预测结果 1  | 预测结果 2  | 预测结果 3  |
 |  ----  | ----  | ----  | ----  |
-| ![urisai.jpg](urisai.jpg)  | momoi (blue archive), 1.4793390460772633) | midori (blue archive), 2.2018390494738482 | iijima yun, 2.309663538692209)] |
+| ![urusai.jpg](urusai.jpg)  | momoi (blue archive), 1.4793390460772633) | midori (blue archive), 2.2018390494738482 | iijima yun, 2.309663538692209)] |
 
 
 ## 关于训练
@@ -44,7 +44,7 @@ print(predict(Image.open('urisai.jpg')))   # [('momoi (blue archive)', 1.4793390
 
 其实是这样的，因为我们有一个先验知识，就是一般来说，不同图中的一个角色，衣服会变，但是发型、发色、瞳色之类的一般不会变，所以我直接把和这些概念有关的标签用手一个一个拿出来，按相同顺序拼成一个embedding，没有就补0。
 
-举个例子，假如我们有4个标签，分别是`黄色头发`、`粉色头发`、`黄色眼睛`、`粉色眼睛`，然后我们输入一张[momoi的图片](urisai.jpg)，就应该得到embedding = `[1, 0, 1, 0]` <sub>(实际上由于标签模型拿不到1，有可能是`[0.9, 0, 0.9, 0]`)</sub>。
+举个例子，假如我们有4个标签，分别是`黄色头发`、`粉色头发`、`黄色眼睛`、`粉色眼睛`，然后我们输入一张[momoi的图片](urusai.jpg)，就应该得到embedding = `[1, 0, 1, 0]` <sub>(实际上由于标签模型拿不到1，有可能是`[0.9, 0, 0.9, 0]`)</sub>。
 
 以及我也试过暴力搜一些标签出来，大部分是没作用<sub>(甚至更坏)</sub>的，有几个有用的能优化几个点，就顺手偷进我的标签里啦。
 
